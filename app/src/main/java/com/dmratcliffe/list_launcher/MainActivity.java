@@ -2,6 +2,7 @@ package com.dmratcliffe.list_launcher;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
             {
                 if(debug)
                     Log.i(TAG, "onClick: settingsButton was pressed, moving activity");
+                Intent settingsIntent = getPackageManager().getLaunchIntentForPackage("com.android.settings");
+                startActivity(settingsIntent);
             }
         });
         searchButton.setOnClickListener(new View.OnClickListener() {
