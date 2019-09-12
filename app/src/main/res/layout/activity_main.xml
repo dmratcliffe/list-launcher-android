@@ -12,30 +12,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:backgroundTint="#FFF"
+        android:clickable="false"
+        android:padding="0dp"
+        app:backgroundTint="#FFFFFF"
         tools:layout_editor_absoluteX="95dp"
         tools:layout_editor_absoluteY="527dp"
-        android:backgroundTint="#FFF"
-        app:backgroundTint="#000"
-        android:padding="0dp"
         />
 
     <ImageButton
         android:id="@+id/settingsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
         android:background="@drawable/ic_settings_black_24dp"
+        android:contentDescription="Settings Button"
+        android:padding="17dp"
         app:layout_anchor="@+id/bottomAppBar"
-        app:layout_anchorGravity="start|center"
-        android:contentDescription="TODO" />
+        app:layout_anchorGravity="start|center" />
 
     <ImageButton
         android:id="@+id/searchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
         android:background="@drawable/ic_search_black_24dp"
+        android:contentDescription="TODO"
+        android:padding="17dp"
         app:layout_anchor="@+id/bottomAppBar"
-        app:layout_anchorGravity="end|center"
-        android:contentDescription="TODO" />
+        app:layout_anchorGravity="end|center" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/appDrawerButton"
@@ -49,4 +54,35 @@
         app:backgroundTint="#000"
         app:borderWidth="2dp"
         />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:background="#858585" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_weight=".5"
+                android:layout_width="0dip"
+                android:layout_height="match_parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_weight=".5"
+                android:layout_width="0dip"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
