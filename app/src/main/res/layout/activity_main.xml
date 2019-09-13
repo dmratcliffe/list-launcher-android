@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#BBBBBB"
+    android:background="#E9E9E9"
     tools:context=".MainActivity">
 
     <com.google.android.material.bottomappbar.BottomAppBar
@@ -64,7 +64,7 @@
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="240dp"
-            android:background="#858585" />
+            android:background="#00858585" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -79,11 +79,6 @@
                 android:background="#00535353"
                 android:backgroundTint="#00505050" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recentAppsRecycler"
-                android:layout_width="0dip"
-                android:layout_height="match_parent"
-                android:layout_weight=".5" />
         </LinearLayout>
 
     </LinearLayout>

@@ -1,6 +1,8 @@
 package com.dmratcliffe.list_launcher;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
             {
                 if(debug)
                     Log.i(TAG, "onClick: searchButton was pressed, moving activity");
+                //TODO: Make this an actual search activity
+                Intent settingsIntent = getPackageManager().getLaunchIntentForPackage("com.android.chrome");
+                startActivity(settingsIntent);
             }
         });
         appDrawerButton.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +56,15 @@ public class MainActivity extends AppCompatActivity {
             {
                 if(debug)
                     Log.i(TAG, "onClick: appDrawerButton button was pressed, moving activity");
+                Intent appDrawerIntent = new Intent(getBaseContext(), AppDrawer.class);
+                startActivity(appDrawerIntent);
             }
         });
+
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.favoriteAppsRecycler);
+        AppListAdapter radapter = new AppListAdapter(this);
+        recyclerView.setAdapter(radapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }
