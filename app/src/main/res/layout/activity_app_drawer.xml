@@ -18,8 +18,9 @@
         app:layout_anchor="@+id/appDrawerRecycler"
         app:layout_anchorGravity="end|bottom"
 
-        app:srcCompat="@drawable/ic_close_black_24dp"
-        />
+
+        app:rippleColor="#00FFFFFF"
+        app:srcCompat="@drawable/ic_close_black_24dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/appDrawerRecycler"

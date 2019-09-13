@@ -52,6 +52,7 @@
         app:borderWidth="2dp"
         app:layout_anchor="@+id/bottomAppBar"
         app:layout_anchorGravity="top|center"
+        app:rippleColor="#00FFFFFF"
         app:srcCompat="@drawable/ic_apps_black_24dp" />
 
     <LinearLayout

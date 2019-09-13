@@ -15,6 +15,9 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHolder> {
@@ -70,6 +73,27 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
             appsList.add(app);
         }
 
+        ArrayList<AppInfo> sorted = new ArrayList<AppInfo>();
+        for (int j = 0; j < appsList.size(); j++) {
+            for (int g = j + 1; g  < appsList.size(); g++) {
+                // comparing strings
+                if (appsList.get(g).label.toString().compareToIgnoreCase(appsList.get(j).label.toString()) < 0) {
+                    AppInfo temp = appsList.get(j);
+                    appsList.set(j, appsList.get(g));
+                    appsList.set(g, temp);
+                }
+            }
+            sorted.add(appsList.get(j));
+        }
+        appsList = sorted;
+
+    }
+
+    public class AppCompare implements Comparator<AppInfo>{
+        @Override
+        public int compare(AppInfo app1, AppInfo app2){
+            return app1.label.toString().compareToIgnoreCase(app2.label.toString());
+        }
     }
 
     @Override
