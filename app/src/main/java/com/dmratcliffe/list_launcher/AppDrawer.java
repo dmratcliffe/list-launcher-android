@@ -33,7 +33,7 @@ public class AppDrawer extends AppCompatActivity {
             }
         });
 
-
+        //TODO: Make sure this works with new apps, i dont think it will
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.appDrawerRecycler);
         AppListAdapter radapter = new AppListAdapter(this);
         recyclerView.setAdapter(radapter);

@@ -84,7 +84,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
             AppInfo app = new AppInfo();
             app.label = ri.loadLabel(pm);
             app.packageName = ri.activityInfo.packageName;
-            app.icon = ri.activityInfo.loadIcon(pm);
+            //app.icon = ri.activityInfo.loadIcon(pm);
             appsList.add(app);
         }
 
