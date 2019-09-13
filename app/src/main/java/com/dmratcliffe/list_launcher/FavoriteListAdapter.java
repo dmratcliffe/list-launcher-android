@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,8 +20,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHolder> {
-    private List<AppInfo> appsList;
+public class FavoriteListAdapter extends RecyclerView.Adapter<FavoriteListAdapter.ViewHolder> {
+    //static public List<AppInfo> appsList;
 
     boolean debug = true;
     String TAG = "list-launcher";
@@ -42,16 +40,6 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
             textView = (TextView) itemView.findViewById(R.id.text);
             img = (ImageView) itemView.findViewById(R.id.img);
             itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    int pos = getAdapterPosition();
-                    if(debug)
-                        Log.i(TAG, "onLongClick: Long clicked on" + appsList.get(pos));
-                    MainActivity.appsList.add(appsList.get(pos));
-                    return true;
-                }
-            });
         }
 
         @Override
@@ -59,48 +47,40 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
             int pos = getAdapterPosition();
             Context context = v.getContext();
 
-            Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(appsList.get(pos).packageName.toString());
+            Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(MainActivity.appsList.get(pos).packageName.toString());
             context.startActivity(launchIntent);
-            Toast.makeText(v.getContext(), appsList.get(pos).label.toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(v.getContext(), MainActivity.appsList.get(pos).label.toString(), Toast.LENGTH_LONG).show();
 
         }
     }
 
 
-
-    public AppListAdapter(Context c) {
+    public FavoriteListAdapter(Context c) {
 
         //This is where we build our list of app details, using the app
         //object we created to store the label, package name and icon
 
         PackageManager pm = c.getPackageManager();
-        appsList = new ArrayList<AppInfo>();
+        MainActivity.appsList = new ArrayList<AppInfo>();
 
         Intent i = new Intent(Intent.ACTION_MAIN, null);
         i.addCategory(Intent.CATEGORY_LAUNCHER);
 
-        List<ResolveInfo> allApps = pm.queryIntentActivities(i, 0);
-        for(ResolveInfo ri:allApps) {
-            AppInfo app = new AppInfo();
-            app.label = ri.loadLabel(pm);
-            app.packageName = ri.activityInfo.packageName;
-            app.icon = ri.activityInfo.loadIcon(pm);
-            appsList.add(app);
-        }
+        String favoriteApps[][] = {{"Chrome", "com.android.chrome"}};
 
         ArrayList<AppInfo> sorted = new ArrayList<AppInfo>();
-        for (int j = 0; j < appsList.size(); j++) {
-            for (int g = j + 1; g  < appsList.size(); g++) {
+        for (int j = 0; j < MainActivity.appsList.size(); j++) {
+            for (int g = j + 1; g  < MainActivity.appsList.size(); g++) {
                 // comparing strings
-                if (appsList.get(g).label.toString().compareToIgnoreCase(appsList.get(j).label.toString()) < 0) {
-                    AppInfo temp = appsList.get(j);
-                    appsList.set(j, appsList.get(g));
-                    appsList.set(g, temp);
+                if (MainActivity.appsList.get(g).label.toString().compareToIgnoreCase(MainActivity.appsList.get(j).label.toString()) < 0) {
+                    AppInfo temp = MainActivity.appsList.get(j);
+                    MainActivity.appsList.set(j, MainActivity.appsList.get(g));
+                    MainActivity.appsList.set(g, temp);
                 }
             }
-            sorted.add(appsList.get(j));
+            sorted.add(MainActivity.appsList.get(j));
         }
-        appsList = sorted;
+        MainActivity.appsList = sorted;
 
     }
 
@@ -112,13 +92,13 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(AppListAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(FavoriteListAdapter.ViewHolder viewHolder, int i) {
 
         //Here we use the information in the list we created to define the views
 
-        String appLabel = appsList.get(i).label.toString();
-        String appPackage = appsList.get(i).packageName.toString();
-        Drawable appIcon = appsList.get(i).icon;
+        String appLabel = MainActivity.appsList.get(i).label.toString();
+        String appPackage = MainActivity.appsList.get(i).packageName.toString();
+        Drawable appIcon = MainActivity.appsList.get(i).icon;
 
         TextView textView = viewHolder.textView;
         textView.setText(appLabel);
@@ -133,12 +113,12 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
         //This method needs to be overridden so that Androids knows how many items
         //will be making it into the list
 
-        return appsList.size();
+        return MainActivity.appsList.size();
     }
 
 
     @Override
-    public AppListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FavoriteListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         //This is what adds the code we've written in here to our target view
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());

@@ -28,7 +28,7 @@ public class AppDrawer extends AppCompatActivity {
             public void onClick(View view)
             {
                 if(debug)
-                    Log.i(TAG, "onClick: settingsButton was pressed, moving activity");
+                    Log.i(TAG, "onClick: closeDrawerButton was pressed, moving activity");
                 finish();
             }
         });

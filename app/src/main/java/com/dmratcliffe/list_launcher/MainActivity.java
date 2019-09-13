@@ -1,6 +1,7 @@
 package com.dmratcliffe.list_launcher;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,18 +9,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewDebug;
 import android.widget.ImageButton;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     boolean debug = true;
     String TAG = "list-launcher";
 
+    static public List<AppInfo> appsList;
+    private FavoriteListAdapter radapter;
+
     private ImageButton settingsButton, searchButton;
     private FloatingActionButton appDrawerButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        appsList =  new ArrayList<AppInfo>();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -63,8 +74,25 @@ public class MainActivity extends AppCompatActivity {
 
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.favoriteAppsRecycler);
-        AppListAdapter radapter = new AppListAdapter(this);
+        radapter = new FavoriteListAdapter(this);
         recyclerView.setAdapter(radapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    protected void onResume() {
+        if(debug) {
+            Log.i(TAG, "onResume: App resumed");
+            for (AppInfo app:
+                 appsList) {
+                Log.i(TAG, "onResume: appinlist: " + app.label);
+            }
+        }
+
+
+        radapter.notifyDataSetChanged();
+
+
+        super.onResume();
     }
 }
