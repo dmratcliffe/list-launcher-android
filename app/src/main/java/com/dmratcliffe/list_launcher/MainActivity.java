@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     boolean debug = true;
     String TAG = "list-launcher";
 
-    static public List<AppInfo> appsList;
+    static public AppList appsList;
     private FavoriteListAdapter radapter;
 
     private ImageButton settingsButton, searchButton;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        appsList =  new ArrayList<AppInfo>();
+        appsList =  new AppList();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

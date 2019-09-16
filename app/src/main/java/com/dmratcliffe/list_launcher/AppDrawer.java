@@ -33,9 +33,9 @@ public class AppDrawer extends AppCompatActivity {
             }
         });
 
-        //TODO: Make sure this works with new apps, i dont think it will
+        //TODO: Make sure this works with new apps, I don't think it will
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.appDrawerRecycler);
-        AppListAdapter radapter = new AppListAdapter(this);
+        AppListAdapter radapter = new AppListAdapter(this, MainActivity.appsList.getDrawerList());
         recyclerView.setAdapter(radapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

@@ -23,7 +23,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHolder> {
-    private List<AppInfo> appsList;
+    private AppList appList;
 
     boolean debug = true;
     String TAG = "list-launcher";
@@ -46,9 +46,9 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
                 @Override
                 public boolean onLongClick(View v) {
                     int pos = getAdapterPosition();
-                    if(debug)
-                        Log.i(TAG, "onLongClick: Long clicked on" + appsList.get(pos));
-                    MainActivity.appsList.add(appsList.get(pos));
+//                    if(debug)
+//                        Log.i(TAG, "onLongClick: Long clicked on" + appsList.get(pos));
+//                    MainActivity.appsList.add(appsList.get(pos));
                     return true;
                 }
             });
@@ -59,34 +59,16 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
             int pos = getAdapterPosition();
             Context context = v.getContext();
 
-            Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(appsList.get(pos).packageName.toString());
+            Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(MainActivity.appsList.getPackageName(pos).toString());
             context.startActivity(launchIntent);
-            Toast.makeText(v.getContext(), appsList.get(pos).label.toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(v.getContext(), MainActivity.appsList.getLabel(pos).toString(), Toast.LENGTH_LONG).show();
 
         }
     }
 
 
 
-    public AppListAdapter(Context c) {
-
-        //This is where we build our list of app details, using the app
-        //object we created to store the label, package name and icon
-
-        PackageManager pm = c.getPackageManager();
-        appsList = new ArrayList<AppInfo>();
-
-        Intent i = new Intent(Intent.ACTION_MAIN, null);
-        i.addCategory(Intent.CATEGORY_LAUNCHER);
-
-        List<ResolveInfo> allApps = pm.queryIntentActivities(i, 0);
-        for(ResolveInfo ri:allApps) {
-            AppInfo app = new AppInfo();
-            app.label = ri.loadLabel(pm);
-            app.packageName = ri.activityInfo.packageName;
-            //app.icon = ri.activityInfo.loadIcon(pm);
-            appsList.add(app);
-        }
+    public AppListAdapter(Context c, AppList appsList) {
 
         ArrayList<AppInfo> sorted = new ArrayList<AppInfo>();
         for (int j = 0; j < appsList.size(); j++) {
@@ -100,8 +82,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
             }
             sorted.add(appsList.get(j));
         }
-        appsList = sorted;
-
+        this.appsList = appList;
     }
 
     public class AppCompare implements Comparator<AppInfo>{
